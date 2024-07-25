@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const newQouteButton = document.getElementById('newQoute');
     const addQuoteButton = document.getElementById('addQoute');
 
-    function displayRandomQuote() {
+    function showRandomQuote() {
         if (qoutes.length = 0){
             quoteDisplay.innerHTML = 'Add qoute here.';
             return;
