@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Please enter quote and catergory!');
         }
     }
-    function filterQoutes() {
+    function filterQoute() {
         const selectedCategory = categoryFilter.value;
         localStorage.setItem('selectedCategory', selectedCategory);
         showRandomQuote();
