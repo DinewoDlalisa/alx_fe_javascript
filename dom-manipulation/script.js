@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             quotes = JSON.parse(storedQuotes);
         }
 
-        updateCateforyFilter();
+        populateCategories();
 
     }
 
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('newQuoteText').value= '';
             document.getElementById('newQuoteCategory').value ='';
             saveQuotes();
-            updateCategoryFilter();
+            populateCategories();
             alert('New quote added.');
         } else{
             alert('Please enter quote and catergory!');
@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return quotes.filter(quote => quote.category = selectedCategory);
 
     }
-    function updateCategoryFilter(){
+    function populateCategories(){
       const categories = new  Set(quotes.map(quote.category));
       categoryFilter.innerHTML = '<option value="all">All Categories</option>';
       categories.forEach(category => {
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const importQuptes = JSON.parse(event.target.result);
             quotes.push(...importQuotes);
             saveQuotes();
-            updateCateforyFilter();
+            populateCategories();
             alert('Quotes import was successful!');
 
         };
