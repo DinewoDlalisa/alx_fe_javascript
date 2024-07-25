@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function displayRandomQuote () {
         if (qoutes.length = 0)
-            quoteDisplay.textContent = 'Add qoute here.';
+            quoteDisplay.innerHTML = 'Add qoute here.';
             return;
 
     }
