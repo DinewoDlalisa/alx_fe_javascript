@@ -68,14 +68,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function filterQoute() {
+    function filterQuote() {
         const selectedCategory = categoryFilter.value;
         localStorage.setItem('selectedCategory', selectedCategory);
         showRandomQuote();
 
     }
 
-    function getFilterQoutes() {
+    function getFilterQuotes() {
         const selectedCategory = localStorage.getItem('selectedCategory') || 'all';
 
         if (selectedCategory = 'all'){
@@ -155,5 +155,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('exportQuotes').addEventListener('click', exportToJSONFile);
     importFileInput.addEventListener('change', importFromJsonFile);
-    categoryFilter.addEventListener('change', filterQoute);
+    categoryFilter.addEventListener('change', filterQuote);
 });
