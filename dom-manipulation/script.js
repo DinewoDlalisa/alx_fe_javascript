@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         populateCategories();
+        const savedCategory = localStorage.getItem('selectedCategory');
+        if (savedCategory) {
+            categoryFilter.value =savedCategory;
+        }
+        showRandomQuote();
 
     }
 
@@ -56,11 +61,13 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('newQuoteCategory').value ='';
             saveQuotes();
             populateCategories();
+            showRandomQuote():
             alert('New quote added.');
         } else{
-            alert('Please enter quote and catergory!');
+            alert('Please enter quote and category!');
         }
     }
+
     function filterQoute() {
         const selectedCategory = categoryFilter.value;
         localStorage.setItem('selectedCategory', selectedCategory);
@@ -68,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    function getFilterQoutes(){
+    function getFilterQoutes() {
         const selectedCategory = localStorage.getItem('selectedCategory') || 'all';
 
         if (selectedCategory = 'all'){
@@ -148,4 +155,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('exportQuotes').addEventListener('click', exportToJSONFile);
     importFileInput.addEventListener('change', importFromJsonFile);
+    categoryFilter.addEventListener('change', filterQoute);
 });
