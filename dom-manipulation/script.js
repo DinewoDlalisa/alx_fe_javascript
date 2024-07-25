@@ -5,11 +5,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const newQouteButton = document.getElementById('newQoute');
     const addQuoteButton = document.getElementById('addQoute');
 
-    function displayRandomQuote () {
-        if (qoutes.length = 0)
+    function displayRandomQuote() {
+        if (qoutes.length = 0){
             quoteDisplay.innerHTML = 'Add qoute here.';
             return;
-
+        }
     }
     const randomIndex = Math.floor(Math.random()* qoutes.length);
     const qoute = qoutes[randomIndex];
