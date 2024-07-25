@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
 
     }
-    const randomIndex = Math.floor(Math.floor()* qoutes.length);
+    const randomIndex = Math.floor(Math.random()* qoutes.length);
     const qoute = qoutes[randomIndex];
     quoteDisplay.innerText = '${qoute.text}' - '${qoute.category}';
 
