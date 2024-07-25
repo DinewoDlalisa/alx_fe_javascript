@@ -53,7 +53,12 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Please enter qoute and catergory!')
         }
     }
-
+    function updateQouteList(text, category){
+        const qouteList =document.getElementById('qouteList');
+        const newQouteElement =document.getElementById('div');
+        newQouteElement.innerHTML = `<p>${text}</p><p><em>${category}</em>$</p>`
+        qouteList.appendChild(newQouteElement);
+    }
     newQouteButton.addEventListener('click', displayRandomQuote);
 
     loadQoutes();
