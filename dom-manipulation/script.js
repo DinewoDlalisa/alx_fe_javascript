@@ -28,30 +28,38 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('qoutes', JSON.stringify(qoutes));
     }
 
-    function addQoute() {
-        const newQouteText = document.getElementById('newQouteText').value;
-        const newQouteCategory = document.getElementById('newQouteCategory');
-        if (newQouteText & newQouteCategory){
-            qoute.push({text: newQouteText, category: newQouteCategory});
-            document.getElementById('newQouteText').value = '';
-            document.getElementById('newQouteCategory').value = '';
-
-            saveQoutes();
-            alert('New qoute added.');
-        }
-        else{
-            alert('Please enter qoute and category.');
-        }
-
-        newQouteButton.addEventListener('click', showRandomQuote);
-
-        addQuoteButton.addEventListener('click', addQoute);
-
-
-        loadQoutes();
-        showRandomQuote();
+    function createAddQuoteForm() {
+        addQuoteFormContainer.innerHTML = `
+            <div>
+                <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+                <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+                <button id="addQuote">Add Quote</button>
+            </div>
+        `;
+        document.getElementById('addQuote').addEventListener('click', addQuote);
     }
 
+    function addQoute() {
+        const newQuoteText = document.getElementById('newQouteText').value = '';
+        const newQuoteCategory = document.getElementById('newQouteCategory').value = '';
+
+        if (newQuoteText & newQuoteCategory) {
+            qoutes.push({ text: newQuoteText, category: newQuoteCategory});
+            document.getElementById('newQouteText').value= '';
+            document.getElementById('newQouteCategory').value ='';
+            saveQoutes();
+            alert('New qoute added.')
+        } else{
+            alert('Please enter qoute and catergory!')
+        }
+    }
+
+    newQouteButton.addEventListener('click', displayRandomQuote);
+
+    loadQoutes();
+    displayRandomQuote();
+    createAddQuoteForm();
+        
     function importFromJsonFile(event) {
         const fileReader = new FileReader();
         fileReader.onload =function(event){
