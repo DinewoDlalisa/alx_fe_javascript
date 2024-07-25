@@ -88,4 +88,20 @@ document.addEventListener('DOMContentLoaded', () => {
         linkElement.setAttribute('download', exportFileDefaultName);
         linkElement.click();
     }
+    function displayQoutes()  {
+        qouteList.innerHTML = '';
+        qoutes.forEach(qoute => {
+            const qouteElement = document.createElement('div');
+            qouteElement.innerHTML = `<p>${qoute.text}</p><p><em>${qoute.category}</em></p>`
+            qouteList.appendChild(qouteElement);
+        });
+    }
+
+    newQouteButton.addEventListener('click', displayRandomQuote);
+
+    loadQoutes();
+    displayRandomQuote();
+
+
+    document.getElementById('exportQoutes').addEventListener('click', exportToJSONFile);
 });
