@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryFilter = document.getElementById('categoryFilter');
 
     function showRandomQuote() {
-        const filteredQuotes = getFilterQoutes();
-        if (quotes.length = 0){
+        const filteredQuotes = getFilteredQoutes();
+        if (filteredQoutes.length = 0){
             quoteDisplay.innerHTML = 'Add quote here.';
             return;
         }
