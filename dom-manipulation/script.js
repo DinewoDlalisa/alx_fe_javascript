@@ -1,31 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const qoutes = [];
+    const quotes = [];
 
     const quoteDisplay = document.getElementById('quoteDisplay');
-    const newQouteButton = document.getElementById('newQoute');
-    const addQuoteButton = document.getElementById('addQoute');
+    const newQuoteButton = document.getElementById('newQuote');
+    const addQuoteButton = document.getElementById('addQuote');
+    const addQuoteFormContainer = document.getElementById('addQuoteFormContainer');
+    const importFileInput = document.getElementById('importFile');
+    const exportQuotesButton = document.getElementById('exportQuotes');
 
     function showRandomQuote() {
-        if (qoutes.length = 0){
-            quoteDisplay.innerHTML = 'Add qoute here.';
+        if (quotes.length = 0){
+            quoteDisplay.innerHTML = 'Add quote here.';
             return;
         }
     }
-    const randomIndex = Math.floor(Math.random()* qoutes.length);
-    const qoute = qoutes[randomIndex];
-    quoteDisplay.innerText = '${qoute.text}' - '${qoute.category}';
+    const randomIndex = Math.floor(Math.random()* quotes.length);
+    const quote = quotes[randomIndex];
+    quoteDisplay.innerText = '${quote.text}' - '${quote.category}';
 
 
-    function loadQoutes () {
-        const storedQoutes = localStorage.getItem('qoutes');
-        if (storedQoutes){
-            qoutes = JSON.parse(storedQoutes);
+    function loadQuotes () {
+        const storedQuotes = localStorage.getItem('quotes');
+        if (storedQuotes){
+            quotes = JSON.parse(storedQuotes);
         }
 
     }
 
-    function saveQoutes() {
-        localStorage.setItem('qoutes', JSON.stringify(qoutes));
+    function saveQuotes() {
+        localStorage.setItem('quotes', JSON.stringify(quotes));
     }
 
     function createAddQuoteForm() {
@@ -39,69 +42,73 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('addQuote').addEventListener('click', addQuote);
     }
 
-    function addQoute() {
-        const newQuoteText = document.getElementById('newQouteText').value = '';
-        const newQuoteCategory = document.getElementById('newQouteCategory').value = '';
+    function addQuote() {
+        const newQuoteText = document.getElementById('newQuoteText').value = '';
+        const newQuoteCategory = document.getElementById('newQuoteCategory').value = '';
 
         if (newQuoteText & newQuoteCategory) {
-            qoutes.push({ text: newQuoteText, category: newQuoteCategory});
-            document.getElementById('newQouteText').value= '';
-            document.getElementById('newQouteCategory').value ='';
-            saveQoutes();
-            alert('New qoute added.')
+            quotes.push({ text: newQuoteText, category: newQuoteCategory});
+            document.getElementById('newQuoteText').value= '';
+            document.getElementById('newQuoteCategory').value ='';
+            saveQuotes();
+            alert('New quote added.')
         } else{
-            alert('Please enter qoute and catergory!')
+            alert('Please enter quote and catergory!')
         }
     }
-    function updateQouteList(text, category){
-        const qouteList =document.getElementById('qouteList');
-        const newQouteElement =document.getElementById('div');
-        newQouteElement.innerHTML = `<p>${text}</p><p><em>${category}</em>$</p>`
-        qouteList.appendChild(newQouteElement);
+    function updateQuoteList(text, category){
+        const quoteList =document.getElementById('quoteList');
+        const newQuoteElement =document.getElementById('div');
+        newQuoteElement.innerHTML = `<p>${text}</p><p><em>${category}</em>$</p>`
+        quoteList.appendChild(newQuoteElement);
     }
     newQouteButton.addEventListener('click', displayRandomQuote);
 
-    loadQoutes();
+    loadQuotes();
     displayRandomQuote();
     createAddQuoteForm();
         
     function importFromJsonFile(event) {
         const fileReader = new FileReader();
         fileReader.onload =function(event){
-            const importQoutes = JSON.parse(event.target.result);
-            qoutes.push(...importQoutes);
-            saveQoutes();
-            alert('Qoutes import was successful!');
+            const importQuptes = JSON.parse(event.target.result);
+            quotes.push(...importQuotes);
+            saveQuotes();
+            alert('Quotes import was successful!');
 
         };
         fileReader.readAsText(event.target.files[0]);
 
     };
     function exportToJSONFile() {
-        const dataStr =JSON.stringify(qoutes);
-        const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+        const dataStr =JSON.stringify(quotes, null, 2);
+        const blob = new Blob([dataStr], {type: 'application/json'});
+        const dataUri = URL.createObjectURL(blob);
 
-        const exportFileDefaultName = 'qoutes.json';
-
+        const exportFileDefaultName = 'quotes.json';
         const linkElement = document.createElement('a');
         linkElement.setAttribute('href', dataUri);
         linkElement.setAttribute('download', exportFileDefaultName);
+        document.body.appendChild(linkElement);
         linkElement.click();
+        document.body.removeChild(linkElement);
+
     }
-    function displayQoutes()  {
-        qouteList.innerHTML = '';
-        qoutes.forEach(qoute => {
-            const qouteElement = document.createElement('div');
-            qouteElement.innerHTML = `<p>${qoute.text}</p><p><em>${qoute.category}</em></p>`
-            qouteList.appendChild(qouteElement);
+    function displayQuotes()  {
+        quoteList.innerHTML = '';
+        quotes.forEach(quote => {
+            const quoteElement = document.createElement('div');
+            quoteElement.innerHTML = `<p>${quote.text}</p><p><em>${quote.category}</em></p>`
+            quoteList.appendChild(quoteElement);
         });
     }
 
-    newQouteButton.addEventListener('click', displayRandomQuote);
+    newQuoteButton.addEventListener('click', displayRandomQuote);
 
-    loadQoutes();
+    loadQuotes();
     displayRandomQuote();
 
 
-    document.getElementById('exportQoutes').addEventListener('click', exportToJSONFile);
+    document.getElementById('exportQuotes').addEventListener('click', exportToJSONFile);
+    importFileInput.addEventListener('change', importFromJsonFile);
 });
