@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     let quotes = [];
-    const API_URL = 'https://jsonplaceholder.typicode.com/post';
+    const API_URL = 'https://jsonplaceholder.typicode.com/posts';
 
     const quoteDisplay = document.getElementById('quoteDisplay');
     const newQuoteButton = document.getElementById('newQuote');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function fetchQuotesFromServer() {
         try {
-            const response = await fetch(API_URL);
+            const response = await fetch(API_URL); 
             const serverQuotes= await response.json();
 
             if (serverQuotes.lenght > 0) {
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(linkElement);
 
     }
-    
+
     function displayQuotes()  {
         quoteList.innerHTML = '';
         quotes.forEach(quote => {
