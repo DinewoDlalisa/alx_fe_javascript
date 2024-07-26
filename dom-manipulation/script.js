@@ -184,12 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    function syncQuotes(){
-        fetchQuotesFromServer().then(() =>{
-            sendQuotesToServer().then(() => {
-                alert('Qoute synced with server!');
-            });
-        });
+    async function syncQuotes(){
+        await fetchQuotesFromServer();
+        await sendQuotesToServer();
+        alert('Qoutes synced with server!')
     }
     function displayQuotes() {
         quoteList.innerHTML = '';
