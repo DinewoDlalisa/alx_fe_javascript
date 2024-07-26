@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function syncQuotes(){
         await fetchQuotesFromServer();
         await sendQuotesToServer();
-        alert('Qoutes synced with server!')
+        alert('Quotes synced with server!')
     }
     function displayQuotes() {
         quoteList.innerHTML = '';
