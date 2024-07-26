@@ -183,6 +183,15 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(linkElement);
 
     }
+    function displayQuotes() {
+        quoteList.innerHTML = '';
+        quotes.forEach(
+            quote => {
+                const quoteElement = document.createElement('div');
+                quoteElement.innerHTML = `<p>${quote.text}</p><p><em>${quote.category}</em></p>`;
+                quoteList.appendChild(quoteElement);
+            });
+    }
 
     function displayQuotes()  {
         quoteList.innerHTML = '';
@@ -202,4 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('exportQuotes').addEventListener('click', exportToJSONFile);
     importFileInput.addEventListener('change', importFromJsonFile);
     categoryFilter.addEventListener('change', filterQuote);
+
+
+    setInterval(syncQuotes, 250000);
 });
