@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const quotes = [];
+    let quotes = [];
+    const API_URL = 'https://jsonplaceholder.typicode.com/post';
 
     const quoteDisplay = document.getElementById('quoteDisplay');
     const newQuoteButton = document.getElementById('newQuote');
@@ -8,6 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const importFileInput = document.getElementById('importFile');
     const exportQuotesButton = document.getElementById('exportQuotes');
     const categoryFilter = document.getElementById('categoryFilter');
+    const quoteList = document.getElementById('quoteList');
+
 
     function showRandomQuote() {
         const filteredQuotes = getFilteredQoutes();
@@ -33,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFilter.value =savedCategory;
         }
         showRandomQuote();
+        syncWithServer();
 
     }
 
@@ -61,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('newQuoteCategory').value ='';
             saveQuotes();
             populateCategories();
-            showRandomQuote():
+            showRandomQuote();
             alert('New quote added.');
         } else{
             alert('Please enter quote and category!');
@@ -138,6 +142,25 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(linkElement);
 
     }
+
+    function syncWithServer(){
+        fetch(API_URL)
+            .then(response=> response.json())
+            .then(serverQuotes => {
+                if(serverQuotes.length> 0){
+                    quotes = serverQuotes.map(qoute => ({
+                        text: quote.title,
+                        category: 'general'
+                    }));
+                    saveQuotes();
+                    showRandomQuote();
+                    alert('Data synced with server sucessfully.')
+                }
+            })
+            .catch(error => console.error('Error whilst syncing with server', error));
+
+    }
+
     function displayQuotes()  {
         quoteList.innerHTML = '';
         quotes.forEach(quote => {
