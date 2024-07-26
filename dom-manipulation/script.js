@@ -11,6 +11,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryFilter = document.getElementById('categoryFilter');
     const quoteList = document.getElementById('quoteList');
 
+    async function fetchQuotesFromServer() {
+        try {
+            const response = await fetch(API_URL);
+            const serverQuotes= await response.json();
+
+            if (serverQuotes.lenght > 0) {
+                quotes = serverQuotes.map(quote => {
+                text: quote.title,
+                category: 'general'
+                });
+                saveQuotes();
+                showRandomQuote();
+                alert('Data synced successfully from server');
+            }
+        } catch (error){
+            console.error('Error occured fetching quote from server', error);
+        }
+    }
 
     function showRandomQuote() {
         const filteredQuotes = getFilteredQoutes();
@@ -142,25 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(linkElement);
 
     }
-
-    function fetchQuotesFromServer(){
-        fetch(API_URL)
-            .then(response=> response.json())
-            .then(serverQuotes => {
-                if(serverQuotes.length > 0){
-                    quotes = serverQuotes.map(quote => ({
-                        text: quote.title,
-                        category: 'general'
-                    }));
-                    saveQuotes();
-                    showRandomQuote();
-                    alert('Data synced with server sucessfully.')
-                }
-            })
-            .catch(error => console.error('Error whilst syncing with server', error));
-
-    }
-
+    
     function displayQuotes()  {
         quoteList.innerHTML = '';
         quotes.forEach(quote => {
