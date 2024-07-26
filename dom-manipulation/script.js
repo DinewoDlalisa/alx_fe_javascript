@@ -18,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (serverQuotes.lenght > 0) {
                 quotes = serverQuotes.map(quote => {
-                text: quote.title,
-                category: 'general'
+                    text: quote.title,
+                    category: 'general'
                 });
                 saveQuotes();
                 showRandomQuote();
@@ -27,6 +27,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (error){
             console.error('Error occured fetching quote from server', error);
+        }
+    }
+
+
+    async function sendQuotesToServer() {
+        try{
+            const response = await fetch(API_URL, {
+
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(quotes)
+            });
+            if (response.ok){
+                alert('Quote sent to server successfully');
+
+            } else {
+                alert('Quotes was not successfully sent to server');
+
+            }
+        }catch (error){
+            console.error('Error sending qoutes to server')
         }
     }
 
