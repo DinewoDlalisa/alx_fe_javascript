@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             categoryFilter.value =savedCategory;
         }
         showRandomQuote();
-        syncWithServer();
+        fetchQuotesFromServer();
 
     }
 
@@ -143,12 +143,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     }
 
-    function syncWithServer(){
+    function fetchQuotesFromServer(){
         fetch(API_URL)
             .then(response=> response.json())
             .then(serverQuotes => {
-                if(serverQuotes.length> 0){
-                    quotes = serverQuotes.map(qoute => ({
+                if(serverQuotes.length > 0){
+                    quotes = serverQuotes.map(quote => ({
                         text: quote.title,
                         category: 'general'
                     }));
