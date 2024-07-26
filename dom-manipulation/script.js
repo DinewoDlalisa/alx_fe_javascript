@@ -183,6 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(linkElement);
 
     }
+
+    function syncQuotes(){
+        fetchQuotesFromServer().then(() =>{
+            sendQuotesToServer().then(() => {
+                alert('Qoute synced with server!');
+            });
+        });
+    }
     function displayQuotes() {
         quoteList.innerHTML = '';
         quotes.forEach(
